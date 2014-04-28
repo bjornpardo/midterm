@@ -68,7 +68,8 @@ var assignAreas = function (couriersPresent, allAreas) {
 $(document).on('ready', function() {
 
 	for ( var i = 0; i < allCouriers.length, i++) {
-		
+		var checkbox = $('<input type = "checkbox">');
+		var label = $('<label>');
 	}
   
 });
