@@ -6,3 +6,11 @@ form {
 textarea {
 	width: 350px;
 }
+
+label {
+	margin-right: 20px;
+}
+
+.capable, .name, .btn {
+	margin-left: 15px;
+}
