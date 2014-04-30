@@ -2,7 +2,6 @@
  * CLASS DEFINITIONS
  *********************************/
 
-
 var Courier = function(name, capableAreas, defaultAreas) {
 	this.name = name;
  	this.capableAreas = capableAreas;
@@ -10,9 +9,18 @@ var Courier = function(name, capableAreas, defaultAreas) {
  	this.daily = [];
 };
 
+// Courier.prototype.sayHi = function() {
+// 	console.log("hi " + this.name)
+// }
+
+Courier.prototype.isCapable = function(area) {
+	return this.capableAreas.indexOf(area) !== -1
+}
+
+
+
 var Area = function(name) {
-	this.name = name;
-	
+	this.name = name;	
 };
 
 var area1 = new Area ('a');
@@ -34,51 +42,109 @@ var allAreas = [area1, area2 , area3, area4, area4, area5, area6, area7, area8, 
 
 var allCouriers = [courier1, courier2, courier3];
 
-
-// var courier1 = new Courier ('1', [area1, area2 , area3, area4]);
-// var courier2 = new Courier ('2', [area4, area5, area6, area7]);
-// var courier3 = new Courier ('3', [area1, area2 , area3, area4, area4, area5, area6, area7, area8, area9, area10]);
-
 // area1.defaultcourier = courier1
+
 
 
 /*********************************
  * FUNCTION DEFINITIONS
  *********************************/
 
-// Creating array of all couriers present base  d on who is checked
-function getValues() {
+// Creating array of all couriers present based on who is checked
+function getPresent() {
 	var couriersPresent = [];
 
-		$('input[type=checkbox]:checked').each(function() {
-        couriersPresent.push($(this).parent().text());
-        });
+	$('input[type=checkbox]:checked').each(function() {
+		var courierName = ($(this).parent().text());
+        couriersPresent.push(searchCourier(courierName));
+     });
+	// console.log(couriersPresent);
+	return couriersPresent;
+};
 
-		return couriersPresent;
+
+// Creating array of all couriers present based on who is NOT checked
+function getAbsent() {
+	var couriersAbsent = [];
+
+	$('input[type=checkbox]:not(:checked)').each(function() {
+		var courierName = ($(this).parent().text());
+        couriersAbsent.push(searchCourier(courierName));
+     });
+	// console.log(couriersPresent);
+	return couriersAbsent;
 };
 
 
 // Search for courier obj by name
 function searchCourier(name) {
 	for(var i = 0; i < allCouriers.length; i++) {
-		if (this.name === name) {
+		if (allCouriers[i].name === name) {
 			return allCouriers[i];
 		}
 	}
 };
 
 
-// function searchCouriers(arr) {
-// 	var presentCouriers = [];
-// 	for(var i = 0; i < allCouriers.length; i++) {
-// 		if (this.name = arr) {
-// 			presentCouriers.push('allCouriers[i]');
-// 			return presentCouriers;
-// 		}
+//Returns list of unassigned areas
+function unassignedList() {
+	var absent = getAbsent();
+	var unassignedArrays = []
+
+	for(var i = 0; i < absent.length; i++) {
+		unassignedArrays.push(absent[i].defaultAreas);
+	}
+	
+	var unassignedStrings = [];
+
+	for(var i = 0; i < unassignedArrays.length; i++) {
+		// unassignedStrings.push(unassignedArrays[i].join());
+		
+		// unassignedArrays[i].concat(unassignedStrings);
+		
+		// var UA = unassignedArrays[i];
+		// for (var i = 0; i < UA.length; i++) {
+		// 	unassignedStrings.push(UA[i]);
+		// }
+
+		unassignedStrings = unassignedStrings.concat.apply(unassignedStrings,unassignedArrays[i]);
+	}
+
+	return unassignedStrings;
+}; 
+
+var test = [];
+
+// Loops through present couriers and assigns area to first available courier
+// The pushes area onto courier's daily areas
+function findCapableCourier(area) {
+	var present = getPresent();
+	for(var i = 0; i < present.length; i++) {
+		if (present[i].isCapable(area)){
+			test.push(area);
+		}
+	}
+};
+
+
+
+
+// function assignAreas() {
+// 	var areas = unassignedList();
+// 	var couriers = getPresent();
+
+// 	for (var i = 0; i < areas.length; i++) {
+//     	for (var j = 0; j < couriers.length; j++) {
+//     		var courierArea = couriers[i];
+//     		for (var k = 0; k < courierArea.length; k++) {
+
+//         	if (areas[i].name === courierArea[k].name) {
+//           		couriers[i].daily.push(areas[i].name);
+// 	        }
+//         	}
+//     	}
 // 	}
-// };
-
-
+// }
 
 
 /*********************************
@@ -92,7 +158,7 @@ $(document).on('ready', function() {
 		var label = $('<label>');
 		label.text(allCouriers[i].name);
 
-		var checkbox = $('<input type="checkbox" class="checkbox" checked>');
+		var checkbox = $('<input type="checkbox" class="checkbox" checked="checked">');
 
 		$('#courier-container').append(label);
 		label.prepend(checkbox);
@@ -105,7 +171,7 @@ $(document).on('ready', function() {
 
 	$('#load-btn').click(function() {
         // getValues();
-        console.log(getValues());
+        console.log(getPresent());
     });
   
 });
