@@ -6,7 +6,7 @@ var Courier = function(name, capableAreas, defaultAreas) {
 	this.name = name;
  	this.capableAreas = capableAreas;
  	this.defaultAreas = defaultAreas;
- 	this.daily = [];
+ 	this.daily = defaultAreas;
 };
 
 // Courier.prototype.sayHi = function() {
@@ -17,30 +17,81 @@ Courier.prototype.isCapable = function(area) {
 	return this.capableAreas.indexOf(area) !== -1
 }
 
+Courier.prototype.dailyList = function() {
+
+	// for (key in this.daily[0]){
+ //    console.log( key + ": " + this.daily[0][key]);
+	// }
+
+	// this.daily.forEach(function(obj, index){
+ //    	for (var key in obj){
+ //        console.log(obj[key]);
+ //    	}
+	// });
+
+	// var dailyList = ""
+	// for (var key in this.daily) {
+ //    	dailyList += this.daily[key];
+ //    	dailyList += ", ";
+ //    }
+ //    return dailyList;
+
+ 	var list = [];
+ 
+ 	for (var i = 0; i < this.daily.length; i++) {
+ 		// console.log(this.daily[i].name);
+ 		list.push(this.daily[i].name);
+ 	}
+
+ 	// console.log(list.join(', '));
+ 	return list.join(', ')
+
+};
 
 
 var Area = function(name) {
 	this.name = name;	
 };
 
-var area1 = new Area ('a');
-var area2 = new Area ('b');
-var area3 = new Area ('c');
-var area4 = new Area ('d');
-var area5 = new Area ('e');
-var area6 = new Area ('f');
-var area7 = new Area ('g');
-var area8 = new Area ('h');
-var area9 = new Area ('i');
-var area10 = new Area ('j');
+var area1 = new Area ('area1');
+var area2 = new Area ('area2');
+var area3 = new Area ('area3');
+var area4 = new Area ('area4');
+var area5 = new Area ('area5');
+var area6 = new Area ('area6');
+var area7 = new Area ('area7');
+var area8 = new Area ('area8');
+var area9 = new Area ('area9');
+var area10 = new Area ('area10');
+var area11 = new Area ('area11');
+var area12 = new Area ('area12');
+var area13 = new Area ('area13');
+var area14 = new Area ('area14');
+var area15 = new Area ('area15');
+var area16 = new Area ('area16');
+var area17 = new Area ('area17');
+var area18 = new Area ('area18');
+var area19 = new Area ('area19');
+var area20 = new Area ('area20');
+var area21 = new Area ('area21');
+var area22 = new Area ('area22');
+var area23 = new Area ('area23');
+var area24 = new Area ('area24');
 
-var courier1 = new Courier ('1', [area1, area2 , area3, area4], [area1, area2, area3]);
-var courier2 = new Courier ('2', [area4, area5, area6, area7], [area4, area5]);
-var courier3 = new Courier ('3', [area1, area2 , area3, area4, area4, area5, area6, area7, area8, area9, area10], [area6, area7, area8, area9, area10]);
 
-var allAreas = [area1, area2 , area3, area4, area4, area5, area6, area7, area8, area9, area10];
+var courier1 = new Courier ('courier1', [area23, area24, area1, area2 , area3, area4, area5], [area1, area2, area3]);
+var courier2 = new Courier ('courier2', [area2, area3, area4, area5, area6, area7, area8, area9], [area4, area5, area6]);
+var courier3 = new Courier ('courier3', [area5, area6, area7, area8, area9, area10, area11], [area7, area8, area9]);
+var courier4 = new Courier ('courier4', [area8, area9, area10, area11, area12, area13, area4], [area10, area11, area12]);
+var courier5 = new Courier ('courier5', [area10, area11, area12, area13, area14, area15, area16, area17], [area13, area14, area15]);
+var courier6 = new Courier ('courier6', [area10, area11, area12, area13, area14, area15, area16, area17, area18, area19, area20], [area16, area17, area18]);
+var courier7 = new Courier ('courier7', [area11, area12, area13, area14, area15, area16, area17, area18, area19, area20, area21, area22, area23], [area19, area20, area21]);
+var courier8 = new Courier ('courier8', [area20, area21, area22, area23, area24, area1, area2], [area22, area23, area24]);
 
-var allCouriers = [courier1, courier2, courier3];
+
+var allAreas = [area1, area2 , area3, area4, area4, area5, area6, area7, area8, area9, area10, area11, area12, area13, area14, area15, area16, area17, area18, area19, area20, area21, area22, area23, area24];
+
+var allCouriers = [courier1, courier2, courier3, courier4, courier5, courier6, courier7, courier8];
 
 // area1.defaultcourier = courier1
 
@@ -113,38 +164,47 @@ function unassignedList() {
 	return unassignedStrings;
 }; 
 
-var test = [];
 
 // Loops through present couriers and assigns area to first available courier
-// The pushes area onto courier's daily areas
-function findCapableCourier(area) {
+// Then pushes/assigns area to courier's daily areas
+function assignCapableCourier(area) {
 	var present = getPresent();
 	for(var i = 0; i < present.length; i++) {
+		// console.log(present[i].isCapable(area))
 		if (present[i].isCapable(area)){
-			test.push(area);
+			present[i].daily.push(area);
+			break;
 		}
 	}
 };
 
 
+// Assigns all unassigned areas
+function assignAll() {
+	getPresent();
+
+	unassignedList();
+
+	var unassigned = unassignedList();
+
+	for (var i = 0; i < unassigned.length; i++) {
+		assignCapableCourier(unassigned[i]);
+	}
+};
 
 
-// function assignAreas() {
-// 	var areas = unassignedList();
-// 	var couriers = getPresent();
+// Diplays new area assignments on page
+function displayNewAssignments() {
 
-// 	for (var i = 0; i < areas.length; i++) {
-//     	for (var j = 0; j < couriers.length; j++) {
-//     		var courierArea = couriers[i];
-//     		for (var k = 0; k < courierArea.length; k++) {
+	var present = getPresent();
 
-//         	if (areas[i].name === courierArea[k].name) {
-//           		couriers[i].daily.push(areas[i].name);
-// 	        }
-//         	}
-//     	}
-// 	}
-// }
+	for (var i = 0; i < present.length; i++) {
+		$('#new').append('<div class="text">' + present[i].name + ': ' + present[i].dailyList() + '</div>');
+			// + ' - ' + present[i].dailyList() + '</div>');
+		// console.log (present[i].dailyList())
+	}
+};
+
 
 
 /*********************************
@@ -167,11 +227,14 @@ $(document).on('ready', function() {
 	}
 
 	// Add Load button after checkboxes
-	$('#courier-container').append('<div><input type="button" value="Load" id="load-btn"></div>');
+	$('#courier-container').append('<div><input type="button" value="Assign" id="load-btn"></div>');
 
 	$('#load-btn').click(function() {
-        // getValues();
-        console.log(getPresent());
+        
+        assignAll();
+
+        displayNewAssignments();
+
     });
   
 });
