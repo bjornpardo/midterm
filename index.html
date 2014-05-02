@@ -5,11 +5,34 @@
   <title>Courier Assignment</title>
   <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="main.css">
+  <link href="bootstrap-switch.css" rel="stylesheet">
+  <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 </head>
 <body>
 
+	<div id="wrapper">
+
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand"><a href="#"><img src="xend.jpg"></a>
+                </li>
+                <li><a href="#"><i class="fa fa-tachometer"></i> Dashboard</a>
+                </li>
+                <li><a href="#"><i class="fa fa-check-square"></i> Courier Assignment</a>
+                </li>
+                <li><a href="#"><i class="fa fa-plus-circle"></i> Add Couriers</a>
+                </li>
+                <li><a href="#"><i class="fa fa-users"></i> Manage Couriers</a>
+                </li>
+                <li><a href="#"><i class="fa fa-building-o"></i> Manage Areas</a>
+                </li>
+                <li><a href="#"><i class="fa fa-wrench"></i> Settings</a>
+            </ul>
+        </div>
+
+
 	<div class="container">
-		<h1>Courier Assignment</h1>
+		<h2>Couriers</h2>
 			
 			<div id="courier-container">
 			
@@ -17,7 +40,7 @@
 			</div>
 
 
-		<h1 id="adj">Adjusted Courier Assignment</h1>
+		<h2 id="adj">Courier Assignment</h2>
 			<div id="new">
 				
 			</div>
@@ -47,6 +70,7 @@
   <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
   <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
   <script src="main.js"></script>
+  <script src="bootstrap-switch.js"></script>
 
 </body>
 </html>

@@ -2,6 +2,7 @@
  * CLASS DEFINITIONS
  *********************************/
 
+
 var Courier = function(name, capableAreas, defaultAreas) {
 	this.name = name;
  	this.capableAreas = capableAreas;
@@ -199,7 +200,7 @@ function displayNewAssignments() {
 	var present = getPresent();
 
 	for (var i = 0; i < present.length; i++) {
-		$('#new').append('<div class="text">' + present[i].name + ': ' + present[i].dailyList() + '</div>');
+		$('#new').append('<div class="text">' + '<b>' + present[i].name + '</b>: ' + present[i].dailyList() + '</div>');
 			// + ' - ' + present[i].dailyList() + '</div>');
 		// console.log (present[i].dailyList())
 	}
@@ -213,12 +214,14 @@ function displayNewAssignments() {
 
 $(document).on('ready', function() {
 
+	$("[name='my-checkbox']").bootstrapSwitch();
+	
 	for ( var i = 0; i < allCouriers.length; i++) {
 		
 		var label = $('<label>');
 		label.text(allCouriers[i].name);
 
-		var checkbox = $('<input type="checkbox" class="checkbox" checked="checked">');
+		var checkbox = $('<input type="checkbox" name="my-checkbox" class="checkbox" checked>');
 
 		$('#courier-container').append(label);
 		label.prepend(checkbox);
@@ -227,7 +230,9 @@ $(document).on('ready', function() {
 	}
 
 	// Add Load button after checkboxes
-	$('#courier-container').append('<div><input type="button" value="Assign" id="load-btn"></div>');
+	// $('#courier-container').append('<div><input type="button" value="Assign" id="load-btn"></div>');
+	$('#courier-container').append('<div><button type="button" class="btn btn-info" id="load-btn">Assign</button></div>');
+
 
 	$('#load-btn').click(function() {
         
