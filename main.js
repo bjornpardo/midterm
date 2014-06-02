@@ -214,7 +214,7 @@ function displayNewAssignments() {
 
 $(document).on('ready', function() {
 
-	$("[name='my-checkbox']").bootstrapSwitch();
+	// $("[name='my-checkbox']").bootstrapSwitch();
 	
 	for ( var i = 0; i < allCouriers.length; i++) {
 		
@@ -235,7 +235,7 @@ $(document).on('ready', function() {
 
 
 	$('#load-btn').click(function() {
-        
+
         assignAll();
 
         displayNewAssignments();
