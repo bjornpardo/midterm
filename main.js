@@ -213,18 +213,18 @@ function displayNewAssignments() {
  *********************************/
 
 $(document).on('ready', function() {
-
-	// $("[name='my-checkbox']").bootstrapSwitch();
 	
 	for ( var i = 0; i < allCouriers.length; i++) {
 		
-		var label = $('<label>');
+		var label = $('<label class="checkbox-inline">');
 		label.text(allCouriers[i].name);
 
 		var checkbox = $('<input type="checkbox" name="my-checkbox" class="checkbox" checked>');
 
 		$('#courier-container').append(label);
 		label.prepend(checkbox);
+
+		// $("[name='my-checkbox']").bootstrapSwitch();
 
 		// $('#courier-container').append(checkbox);
 	}
